@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name couplet.mirrors.asia;
+
+    client_max_body_size 100m;
+
+    location / {
+        root /var/opt/couplet;
+        index home.html;
+        try_files result.html =404;
+    }
+    location /static {
+        root /var/opt/couplet;
+    }
+    location /api {
+        uwsgi_pass unix:///run/uwsgi/app/couplet/socket;
+        include /etc/nginx/uwsgi_params;
+    }
+}

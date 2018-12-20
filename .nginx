@@ -1,19 +1,19 @@
 server {
     listen 80;
-    server_name couplet.mirrors.asia;
+    server_name poemscape.mirrors.asia;
 
     client_max_body_size 100m;
 
     location / {
-        root /var/opt/couplet;
+        root /var/opt/poemscape;
         index home.html;
         try_files result.html =404;
     }
     location /static {
-        root /var/opt/couplet;
+        root /var/opt/poemscape;
     }
     location /api {
-        uwsgi_pass unix:///run/uwsgi/app/couplet/socket;
+        uwsgi_pass unix:///run/uwsgi/app/poemscape/socket;
         include /etc/nginx/uwsgi_params;
     }
 }

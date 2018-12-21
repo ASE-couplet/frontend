@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -5,35 +6,50 @@
     <title>PoemSpace</title>
     <style>
         @font-face{
-            font-family:"logo_zh";
-            src:url('/static/fonts/logo_zh.ttf') format('truetype')
+            font-family: "logo_zh";
+            src: url('/static/fonts/logo_zh.ttf') format('truetype');
         }
         @font-face{
             font-family: "logo_en";
-            src:url('/static/fonts/logo_en.TTF') format('truetype')
+            src: url('/static/fonts/logo_en.TTF') format('truetype');
         }
         @font-face{
             font-family: "text";
-            src:url('/static/fonts/text.TTF') format('truetype')
+            src: url('/static/fonts/text.TTF') format('truetype');
         }
         div{
             text-align: center;
             width: 100%;
         }
         .upload{
-            position: relative;width: 80px;height: 30px;line-height: 18px;background:white;text-align: justify;
-            color:black;padding: 0px 5px;-webkit-border-radius: 20px;border-radius: 10px;
+            position: relative;
+            width: 80px;
+            height: 30px;
+            line-height: 18px;
+            background:white;
+            text-align: justify;
+            color:black;
+            padding: 0px 5px;
+            -webkit-border-radius: 20px;
+            border-radius: 10px;
             margin:  auto;
         }
-        .upload form{width:100%;position:absolute; left:0; top:0;opacity:0; filter:alpha(opacity=0);}
-        .upload form input{width: 100%;}
-        .content{font-family: 'logo_zh'}
-        .input{font-family: "logo_zh"}
-        .p{font-family: 'text'}
-        
+        .upload form{
+            width: 100%;
+            position: absolute;
+            left: 0; 
+            top: 0;
+            opacity: 0; 
+            filter: alpha(opacity=0);
+        }
+        .upload form input{ width: 100% }
+        .content{ font-family: 'logo_zh' }
+        .input{ font-family: "logo_zh" }
+        .p{ font-family: 'text' }
     </style>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/text.css">
+    <link rel="stylesheet" href="/static/css/base-min.css">
     <script src="/static/js/jquery-1.11.3.min.js"></script>
     <script src="/static/js/bootstrap.js"></script>
     <script src="/static/js/vue.js"></script>
@@ -43,55 +59,56 @@
 <body style="background-color:whitesmoke">
     <div>
         <img src="/static/images/upper.png">
-        <br/>
+        <br>
         <font size="8" color="gray" face='text'>诗景|<font size="8" color="gray" face='logo_en'>PoemSpace</font>
-        <br/>
-        <br/>
+        <br>
+        <br>
         <font size="5" color="gray" face='text'>
-            床前明月光，<br/>
-            疑似地上霜。<br/>
-            举头望明月，<br/>
-            低头思故乡。<br/>
+            床前明月光，<br>
+            疑似地上霜。<br>
+            举头望明月，<br>
+            低头思故乡。<br>
         </font>
-        <br/>     
+        <br>     
     </div>
     <div id="upload">
-        <label>{{message}}</label>
-        <input type="file" accept="image/*" name="file" @onchange="update"/>
+        <label for="file" v-if="uploading">正在上传</label>
+        <label for="file" v-else>上传图片</label>
+        <input id="file" type="file" accept="image/*" name="file" @change="update" hidden>
     </div>
     <div>
-        <br/>
+        <br>
         <font size="3" color="gray" face='logo_zh'><a href="AboutUs">关于我们</a> | <a href="FeedBack">反馈</a></font>
     </div>
     <script>
         app = new Vue({
             el: '#upload',
             data: {
-                message: "上传图片"
+                uploading: false,
             },
             methods: {
                 update(e) {
-                    console.log('uploading...')
+                    console.log('uploading...');
+                    this.uploading = true;
                     let file = e.target.files[0];
                     let param = new FormData();
                     param.append('image', file);
                     console.log(param.get('image'));
-                    axios.post('/upload', {
-                        param
-                    })
+                    axios.post('/api/upload', param)
                     .then(function (response) {
-                        console.log(response)
+                        console.log(response);
                     })
                     .catch(function (error) {
                         console.log(error);
+                        this.uploading = false;
                     });
                     // this.$http.post('/upload',param)
                     //     .then(response=>{
                     //     console.log(response.data);
                     // })
-                }            
-            }
-        })
+                },            
+            },
+        });
     </script>
 </body>
 </html>

@@ -2,17 +2,24 @@ server {
     listen 80;
     server_name poemscape.mirrors.asia;
 
+    root /var/opt/poemscape/frontend;
     client_max_body_size 100m;
 
+    location = / {
+        try_files /home.html =400;
+    }
     location / {
-        root /var/opt/poemscape/frontend;
-        index home.html;
-        try_files result.html =404;
+        try_files /result.html =404;
     }
     location /static {
-        root /var/opt/poemscape/frontend;
+        root /var/opt/poemscape;
+        try_files $uri /frontend$uri =404;
     }
     location /api {
+        uwsgi_pass unix:///run/uwsgi/app/poemscape/socket;
+        include /etc/nginx/uwsgi_params;
+    }
+    location /admin {
         uwsgi_pass unix:///run/uwsgi/app/poemscape/socket;
         include /etc/nginx/uwsgi_params;
     }

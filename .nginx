@@ -5,12 +5,12 @@ server {
     client_max_body_size 100m;
 
     location / {
-        root /var/opt/poemscape;
+        root /var/opt/poemscape/frontend;
         index home.html;
         try_files result.html =404;
     }
     location /static {
-        root /var/opt/poemscape;
+        root /var/opt/poemscape/frontend;
     }
     location /api {
         uwsgi_pass unix:///run/uwsgi/app/poemscape/socket;

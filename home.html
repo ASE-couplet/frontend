@@ -3,12 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>PoemSpace</title>
+    <title>PoemScape</title>
     <style>
-        @font-face{
-            font-family: "logo_zh";
-            src: url('/static/fonts/logo_zh.ttf') format('truetype');
-        }
         @font-face{
             font-family: "logo_en";
             src: url('/static/fonts/logo_en.TTF') format('truetype');
@@ -34,6 +30,11 @@
             border-radius: 10px;
             margin:  auto;
         }
+        .upload label{
+            color: gray;
+            font-family: text;
+            font-size: 500%;
+        }
         .upload form{
             width: 100%;
             position: absolute;
@@ -43,8 +44,7 @@
             filter: alpha(opacity=0);
         }
         .upload form input{ width: 100% }
-        .content{ font-family: 'logo_zh' }
-        .input{ font-family: "logo_zh" }
+        .input{ font-family: "text" }
         .p{ font-family: 'text' }
     </style>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
@@ -56,26 +56,24 @@
     <script src="/static/js/axios.min.js"></script>
 </head>
 
-<body style="background-color:whitesmoke">
+<body style="background-color: #f7f6f4">
     <div>
         <img src="/static/images/upper.png">
         <br>
-        <font size="8" color="gray" face='text'>诗景
-        <font size="8" color="gray" face='logo_en'>| PoemSpace</font>
-        <br>
-        <font size="5" color="gray" face='text'>
-            床前明月光，<br>
-            疑似地上霜。<br>
-            举头望明月，<br>
-            低头思故乡。<br>
-        </font>
+        <span style="color: gray; font-family: text; font-size: 300%">诗景</span>
+        <span style="color: gray; font-family: logo_en; font-size: 300%">| PoemScape</span>
+        <p></p>
+        <span style="color: gray; font-family: text; font-size: 200%">
+            <p>床前明月光，</p>
+            <p>疑似地上霜。</p>
+            <p>举头望明月，</p>
+            <p>低头思故乡。</p>
+        </span>
     </div>
     <div id="upload">
-        <font size="5" color="gray" face='text'>
         <label for="file" v-if="uploading">正在上传</label>
         <label for="file" v-else>上传图片</label>
         <input id="file" type="file" accept="image/*" name="file" @change="update" hidden>
-        </font>
     </div>
     <div>
         <br>
@@ -100,20 +98,24 @@
                     axios.post('/api/upload', param)
                     .then(function (response) {
                         console.log("upload success!");
-                        // jump to waiting page
                         console.log(response);
+                        // jump to result page， response.data.id is the #order
+                        window.location.href = String(response.data.id);
                     })
                     .catch(function (error) {
-                        this.uploading = false; // 为什么这里 uploading = false 之后，按钮仍然是正在上传呢？
+                        app.uploading = false;
                         // enable input
                         document.getElementById("file").disabled="";
                         console.log("upload fail!");
                         console.log(error);
+                        console.log(error.response.data)
+                        if(error.response.data.error == undefined){
+                            alert("Server Error.");
+                        }
+                        else{
+                            alert(error.response.data.error);
+                        }
                     });
-                    // this.$http.post('/upload',param)
-                    //     .then(response=>{
-                    //     console.log(response.data);
-                    // })
                 },            
             },
         });

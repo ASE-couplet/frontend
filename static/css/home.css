@@ -1,0 +1,35 @@
+@import "base.css";
+
+.hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+.content {
+    margin-top: 40vh;
+    text-align: center;
+}
+.upload-button {
+    height: 10vw;
+    max-height: 60px;
+    cursor: pointer;
+}
+.share {
+    background-color: #f7f6f4;
+    margin-top: 10vw;
+    padding: 0 5vw;
+    margin-bottom: -100vh;
+}
+h2 {
+    text-align: left;
+    border-bottom: solid 1px #ffffff;
+}
+h2 img {
+    height: 10vw;
+    max-height: 60px;
+}
+.pad {
+    height: 100vh;
+}

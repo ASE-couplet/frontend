@@ -4,80 +4,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PoemScape</title>
-    <style>
-        @font-face{
-            font-family: "logo_en";
-            src: url('/static/fonts/logo_en.TTF') format('truetype');
-        }
-        @font-face{
-            font-family: "text";
-            src: url('/static/fonts/text.TTF') format('truetype');
-        }
-        div{
-            text-align: center;
-            width: 100%;
-        }
-        .upload{
-            position: relative;
-            width: 80px;
-            height: 30px;
-            line-height: 18px;
-            background:white;
-            text-align: center;
-            color:black;
-            padding: 0px 5px;
-            -webkit-border-radius: 20px;
-            border-radius: 10px;
-            margin:  auto;
-        }
-        .upload label{
-            color: gray;
-            font-family: text;
-            font-size: 500%;
-        }
-        .upload form{
-            width: 100%;
-            position: absolute;
-            left: 0; 
-            top: 0;
-            opacity: 0; 
-            filter: alpha(opacity=0);
-        }
-        .upload form input{ width: 100% }
-        .input{ font-family: "text" }
-        .p{ font-family: 'text' }
-    </style>
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/css/text.css">
-    <link rel="stylesheet" href="/static/css/base-min.css">
-    <script src="/static/js/jquery-1.11.3.min.js"></script>
-    <script src="/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/css/home.css">
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/axios.min.js"></script>
 </head>
-
-<body style="background-color: #f7f6f4">
-    <div>
-        <img src="/static/images/upper.png">
-        <br>
-        <span style="color: gray; font-family: text; font-size: 300%">诗景</span>
-        <span style="color: gray; font-family: logo_en; font-size: 300%">| PoemScape</span>
-        <p></p>
-        <span style="color: gray; font-family: text; font-size: 200%">
-            <p>床前明月光，</p>
-            <p>疑似地上霜。</p>
-            <p>举头望明月，</p>
-            <p>低头思故乡。</p>
-        </span>
-    </div>
-    <div id="upload">
-        <label for="file" v-if="uploading">正在上传</label>
-        <label for="file" v-else>上传图片</label>
-        <input id="file" type="file" accept="image/*" name="file" @change="update" hidden>
-    </div>
-    <div>
-        <br>
-        <font size="3" color="gray" face='text'><a href="AboutUs">关于我们</a> | <a href="FeedBack">反馈</a></font>
+<body>
+    <img class="hero" src="/static/images/hero.png">
+    <div id="upload" class="content">
+        <label for="image" v-if="uploading">正在上传</label>
+        <label for="image" v-else>
+            <img class="upload-button" id="file" src="/static/images/upload.png" alt="上传图片">
+        </label>
+        <input type="file" id="image" accept="image/*" hidden @change="update">
+        <div class="pure-g share">
+            <h2 class="pure-u-1">
+                <img src="/static/images/share.png" alt="诗景分享">
+            </h2>
+            <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                <a class="share-item" href="/1">
+                    <img class="pure-img" src="/static/images/hero.png">
+                </a>
+            </div>
+            <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                <a class="share-item" href="/2">
+                    <img class="pure-img" src="/static/images/hero.png">
+                </a>
+            </div>
+            <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                <a class="share-item" href="/3">
+                    <img class="pure-img" src="/static/images/hero.png">
+                </a>
+            </div>
+            <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                <a class="share-item" href="/4">
+                    <img class="pure-img" src="/static/images/hero.png">
+                </a>
+            </div>
+            <div class="pad"></div>
+        </div>
     </div>
     <script>
         app = new Vue({
@@ -89,7 +53,7 @@
                 update(e) {
                     console.log('uploading...');
                     // disable input
-                    document.getElementById("file").disabled="disabled";
+                    document.getElementById("image").disabled="disabled";
                     this.uploading = true;
                     let file = e.target.files[0];
                     let param = new FormData();
@@ -105,7 +69,7 @@
                     .catch(function (error) {
                         app.uploading = false;
                         // enable input
-                        document.getElementById("file").disabled="";
+                        document.getElementById("image").disabled="";
                         console.log("upload fail!");
                         console.log(error);
                         console.log(error.response.data)

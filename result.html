@@ -33,8 +33,6 @@
         {{ message }}
     </div>
 
-
-
     <script>
         app = new Vue({
             el:'#outcome',
@@ -42,19 +40,21 @@
                 message: "Waiting",
             },
         });
-        let param = new FormData();
-        let id = window.location.href.split('/')[-1]; // not sure about this
-        param.append('id', id);
-        axios.get('/api/result', param)
-        .then(function (response) {
-            console.log(response);
-            app.message = response.poem;
-        })
-        .catch(function (error) {
-            console.log(error);
-            app.message = "Error.";
-            alert("Server Error.")
-        })
+        let id = window.location.pathname.slice(1);
+        let param = {id: id};
+        function getOutcome() {
+            axios.get('/api/result', param)
+            .then(function (response) {
+                console.log(response);
+                app.message = response.poem;
+            })
+            .catch(function (error) {
+                console.log(error);
+                app.message = "Error.";
+                // alert("Server Error.");
+            });
+        }
+        setInterval("getOutcome()", "500");
     </script>
 
 </body>

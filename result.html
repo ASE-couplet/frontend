@@ -40,10 +40,13 @@
                 message: "Waiting",
             },
         });
-        let id = window.location.pathname.slice(1);
-        let param = {id: id};
+        let order_id = window.location.pathname.slice(1);
         function getOutcome() {
-            axios.get('/api/result', param)
+            axios.get('/api/result', {
+                params: {
+                    id: order_id,
+                },
+            })
             .then(function (response) {
                 console.log(response);
                 app.message = response.poem;

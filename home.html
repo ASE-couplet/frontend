@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/static/css/home.css">
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/axios.min.js"></script>
+    <script>
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    </script>
 </head>
 <body>
     <img class="hero" src="/static/images/hero.png">

@@ -4,35 +4,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PoemScape</title>
-    <style>
-        @font-face{
-            font-family: "logo_en";
-            src: url('/static/fonts/logo_en.TTF') format('truetype');
-        }
-        @font-face{
-            font-family: "text";
-            src: url('/static/fonts/text.TTF') format('truetype');
-        }
-        div{
-            text-align: center;
-            width: 100%;
-        }
-    </style>
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/css/text.css">
-    <link rel="stylesheet" href="/static/css/base-min.css">
-    <script src="/static/js/jquery-1.11.3.min.js"></script>
-    <script src="/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/css/result.css">
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/axios.min.js"></script>
 </head>
 
-<body style="background-color: #f7f6f4">
-
-    <div id="outcome">
-        {{ message }}
+<body style="background-color: #acacac">
+    <div class="content">
+        <h1 class="pure-u-1">
+            <img class="logo_top" src="static/images/logo_top.png">
+        </h1>
+        <div id="outcome">
+            {{ message }}
+        </div>
+        <div class="pure-u-1-4">
+            <a class="button-item" href="/home.html">
+                <img class="pure-img" src="/static/images/back.png">
+            </a>
+        </div>
+        <div class="pure-u-1-4">
+            <a class="button-item" href="/home.html">
+                <img class="pure-img" src="/static/images/share_card.png">
+            </a>            
+        </div>
+        <div class="pure-u-1-4">
+            <a class="button-item" href="/home.html">
+                <img class="pure-img" src="/static/images/change_style.png">
+            </a>
+        </div>
+        
     </div>
-
     <script>
         app = new Vue({
             el:'#outcome',
@@ -49,15 +50,19 @@
             })
             .then(function (response) {
                 console.log(response);
-                app.message = response.poem;
+                if(response.poem !== null) {
+                    clearInterval(interval);
+                    app.message = response.poem;
+                }               
             })
             .catch(function (error) {
                 console.log(error);
                 app.message = "Error.";
+                clearInterval(interval);
                 // alert("Server Error.");
             });
         }
-        setInterval("getOutcome()", "500");
+        interval = setInterval("getOutcome()", "500");
     </script>
 
 </body>

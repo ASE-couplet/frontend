@@ -50,9 +50,9 @@
             })
             .then(function (response) {
                 console.log(response);
-                if(response.poem !== null) {
+                if(response.data.poem !== null) {
                     clearInterval(interval);
-                    app.message = response.poem;
+                    app.message = response.data.poem;
                 }               
             })
             .catch(function (error) {

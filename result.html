@@ -45,7 +45,7 @@
         function getOutcome() {
             axios.get('/api/result', {
                 params: {
-                    id: order_id,
+                    order: order_id,
                 },
             })
             .then(function (response) {

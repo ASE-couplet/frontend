@@ -2,8 +2,9 @@
 
 .content {
     margin-left: 5vw;
+    margin-right: 5vw;
     text-align: center;
 }
-.logo_top {
-    float: left;
+h1 {
+    text-align: left;
 }

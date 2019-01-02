@@ -15,6 +15,7 @@
     height: 10vw;
     max-height: 60px;
     cursor: pointer;
+    display: inline-block;
 }
 .share {
     background-color: #f7f6f4;

@@ -11,11 +11,22 @@
 <body>
     <img class="hero" src="/static/images/hero.png">
     <div id="upload" class="content">
-        <label for="image" v-if="uploading">正在上传</label>
-        <label for="image" v-else>
-            <img class="upload-button" id="file" src="/static/images/upload.png" alt="上传图片">
-        </label>
-        <input type="file" id="image" accept="image/*" hidden @change="update">
+        <div class="pure-g">
+            <div class="pure-u-1-2">
+                <label for="image" v-if="uploading">正在上传</label>
+                <label for="image" v-else>
+                    <img class="upload-button pure-img" id="file" src="/static/images/upload.png" alt="上传图片">
+                </label>
+                <input type="file" id="image" accept="image/*" hidden @change="update">
+            </div>
+            <div class="pure-u-1-2">
+                <label for="image" v-if="uploading">正在上传</label>
+                <label for="image" v-else>
+                    <img class="upload-button pure-img" id="file" src="/static/images/upload.png" alt="上传图片">
+                </label>
+                <input type="file" id="image" accept="image/*" hidden @change="update">
+            </div>
+        </div>
         <div class="pure-g share">
             <h2 class="pure-u-1">
                 <img src="/static/images/share.png" alt="诗景分享">

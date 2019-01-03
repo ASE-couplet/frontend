@@ -14,25 +14,51 @@
         <h1>
             <img class="logo_top" src="static/images/logo_top.png">
         </h1>
-        <div id="outcome" v-if="waiting">
-            {{ message }}
+        <div id="outcome" class="pure-g">
+            <div class="pure-u-1-2">
+                <label for="choose">
+                    <img class="choose-button pure-img" src="/static/images/jueju_chosen.jpg" alt="生成绝句">
+                </label>
+                <input type="button" id="choose" hidden @change="click_poem">
+            </div>
+            <div class="pure-u-1-2">
+                    <label for="choose">
+                        <img class="choose-button pure-img" src="/static/images/duilian_chosen.jpg" alt="生成对联">
+                    </label>
+                    <input type="button" id="choose" hidden @change="click_couplet">
+            </div>
+
+            <div class="couplet" v-if="choose_couplet">
+                <div v-if="waiting">
+                    {{ message }}
+                </div>
+                <div v-else>
+                    <img class="pure-img" src="couplet_src">
+                </div>
+            </div>
+            <div class="poem" v-else>
+                <div v-if="waiting">
+                    {{ message }}
+                </div>
+                <div v-else>
+                    <img class="pure-img" src="poem_src">
+                </div>
+            </div>
         </div>
-        <div id="outcome" v-else>
-            <img class="pure-img" src="{{ card_src }}">
-        </div>
+
         <div class="pure-g">
             <div class="pure-u-1-3">
-                <a class="button-item" href="/home.html">
+                <a class="button-item" href="/">
                     <img class="pure-img" src="/static/images/back.png">
                 </a>
             </div>
             <div class="pure-u-1-3">
-                <a class="button-item" href="/home.html">
+                <a class="button-item" href="/">
                     <img class="pure-img" src="/static/images/share_card.png">
                 </a>            
             </div>
             <div class="pure-u-1-3">
-                <a class="button-item" href="/home.html">
+                <a class="button-item" href="/">
                     <img class="pure-img" src="/static/images/change_style.png">
                 </a>
             </div>
@@ -44,7 +70,17 @@
             data: {
                 message: "Waiting",
                 waiting: true,
-                card_src: "",
+                choose_couplet: true,
+                couplet_src: "",
+                poem_src: "",
+            },
+            methods: {
+                click_couplet(e) {
+                    this.choose_couplet = true;
+                },
+                click_poem(e) {
+                    this.choose_couplet = false;
+                },
             },
         });
         let order_id = window.location.pathname.slice(1);
@@ -59,7 +95,8 @@
                 if(response.data.poem !== null) {
                     app.waiting = false;
                     app.message = response.data.poem;
-                    app.card_src = "/api/card?order=" + order_id;
+                    app.couplet_src = "/api/couplet/card?order=" + order_id;
+                    app.poem_src = "/api/poem/card?order=" + order_id;
                     clearInterval(interval);
                 }               
             })

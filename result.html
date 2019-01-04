@@ -15,7 +15,7 @@
             <img class="logo_top" src="static/images/logo_top.png">
         </h1>
         <div id="outcome" class="pure-g">
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 choose-poem">
                 <label for="choose">
                     <div v-if="choose_couplet">
                         <img class="choose-button pure-img" src="/static/images/poem_unchosen.png" alt="生成绝句">
@@ -26,7 +26,7 @@
                 </label>
                 <input type="button" id="choose" hidden onclick="app.click_poem()">
             </div>
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 choose-couplet">
                 <label for="choose">
                     <div v-if="choose_couplet">
                         <img class="choose-button pure-img" src="/static/images/couplet_chosen.png" alt="生成对联">

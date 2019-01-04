@@ -5,6 +5,15 @@
     margin-right: 5vw;
     text-align: center;
 }
+.choose-button {
+    display: inline-block;
+}
+.choose-poem {
+    text-align: right;
+}
+.choose-couplet {
+    text-align: left;
+}
 h1 {
     text-align: left;
 }

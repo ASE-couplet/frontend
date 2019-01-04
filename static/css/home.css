@@ -17,6 +17,12 @@
     cursor: pointer;
     display: inline-block;
 }
+.upload-landscape {
+    text-align: right;
+}
+.upload-people {
+    text-align: left;
+}
 .share {
     background-color: #f7f6f4;
     margin-top: 10vw;

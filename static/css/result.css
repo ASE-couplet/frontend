@@ -8,16 +8,7 @@
 .logo_top {
     max-width: 80vw;
 }
-.choose-button {
-    display: inline-block;
-}
-.choose-poem {
-    text-align: right;
-}
-.choose-couplet {
-    text-align: left;
-}
-.outcome_img {
+.bottom-img {
     display: inline-block;
 }
 h1 {

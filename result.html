@@ -16,26 +16,22 @@
         </h1>
         <div id="outcome" class="pure-g">
             <div class="pure-u-1-2 choose-poem">
-                <label for="choose">
-                    <div v-if="choose_couplet">
-                        <img class="choose-button pure-img" src="/static/images/poem_unchosen.png" alt="生成绝句">
-                    </div>
-                    <div v-else>
-                        <img class="choose-button pure-img" src="/static/images/poem_chosen.png" alt="生成绝句">
-                    </div>                    
+                <label for="choose_poem_button" v-if="choose_couplet">
+                    <img class="choose-button pure-img" src="/static/images/poem_unchosen.png" alt="生成绝句">         
                 </label>
-                <input type="button" id="choose" hidden onclick="app.click_poem()">
+                <label for="choose_poem_button" v-else>
+                    <img class="choose-button pure-img" src="/static/images/poem_chosen.png" alt="生成绝句">
+                </label>
+                <input type="button" id="choose_poem_button" hidden onclick="app.click_poem()">
             </div>
             <div class="pure-u-1-2 choose-couplet">
-                <label for="choose">
-                    <div v-if="choose_couplet">
-                        <img class="choose-button pure-img" src="/static/images/couplet_chosen.png" alt="生成对联">
-                    </div>
-                    <div v-else>
-                        <img class="choose-button pure-img" src="/static/images/couplet_unchosen.png" alt="生成绝句">
-                    </div>                            
+                <label for="choose_couplet_button" v-if="choose_couplet">
+                    <img class="choose-button pure-img" src="/static/images/couplet_chosen.png" alt="生成对联">
                 </label>
-                <input type="button" id="choose" hidden onclick="app.click_couplet()">
+                <label for="choose_couplet_button" v-else>
+                    <img class="choose-button pure-img" src="/static/images/couplet_unchosen.png" alt="生成对联">                
+                </label>
+                <input type="button" id="choose_couplet_button" hidden onclick="app.click_couplet()">
             </div>
 
             <div class="couplet" v-if="choose_couplet">
@@ -43,7 +39,7 @@
                     {{ message }}
                 </div>
                 <div v-else>
-                    <img class="pure-img" src="couplet_src">
+                    <img class="pure-img outcome_img" :src="couplet_src">
                 </div>
             </div>
             <div class="poem" v-else>
@@ -51,7 +47,7 @@
                     {{ message }}
                 </div>
                 <div v-else>
-                    <img class="pure-img" src="poem_src">
+                    <img class="pure-img outcome_img" :src="poem_src">
                 </div>
             </div>
         </div>
@@ -80,7 +76,7 @@
             data: {
                 message: "Waiting",
                 waiting: true,
-                choose_couplet: true,
+                choose_couplet: false,
                 couplet_src: "",
                 poem_src: "",
             },

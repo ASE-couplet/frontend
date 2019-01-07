@@ -8,6 +8,9 @@
 .logo_top {
     max-width: 80vw;
 }
+.outcome_img {
+    display: inline-block;
+}
 .bottom-img {
     display: inline-block;
 }

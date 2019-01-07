@@ -11,6 +11,12 @@
     margin-top: 40vh;
     text-align: center;
 }
+.share-img {
+    max-width: 25vw;
+    max-height: 23vh;
+    size: cover;
+    display: inline-block;
+}
 .upload-button {
     height: 10vw;
     max-height: 60px;

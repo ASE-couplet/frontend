@@ -5,8 +5,18 @@
     margin-right: 5vw;
     text-align: center;
 }
+
 .logo_top {
     max-width: 80vw;
+}
+.choose-button {
+    display: inline-block;
+}
+.choose-poem {
+    text-align: right;
+}
+.choose-couplet {
+    text-align: left;
 }
 .outcome_img {
     display: inline-block;

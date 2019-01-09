@@ -14,12 +14,43 @@
         <h1>
             <img class="logo_top" src="static/images/logo_top.png">
         </h1>
-        <div id="outcome">
-            <div v-if="waiting">
-                {{ message }}
+        <div id="outcome" class="pure-g">
+            <div class="pure-u-1-2 choose-poem">
+                <label for="choose_poem_button" v-if="choose_couplet">
+                    <img class="choose-button pure-img" src="/static/images/poem_unchosen.png" alt="生成绝句">         
+                </label>
+                <label for="choose_poem_button" v-else>
+                    <img class="choose-button pure-img" src="/static/images/poem_chosen.png" alt="生成绝句">
+                </label>
+                <input type="button" id="choose_poem_button" hidden onclick="app.click_poem()">
             </div>
-            <div v-else>
-                <img class="pure-img outcome_img" :src="card_src">
+            <div class="pure-u-1-2 choose-couplet">
+                <label for="choose_couplet_button" v-if="choose_couplet">
+                    <img class="choose-button pure-img" src="/static/images/couplet_chosen.png" alt="生成对联">
+                </label>
+                <label for="choose_couplet_button" v-else>
+                    <img class="choose-button pure-img" src="/static/images/couplet_unchosen.png" alt="生成对联">                
+                </label>
+                <input type="button" id="choose_couplet_button" hidden onclick="app.click_couplet()">
+            </div>
+
+            <div class="pure-u-1">
+                <div class="couplet" v-if="choose_couplet">
+                    <div v-if="waiting">
+                        {{ message }}
+                    </div>
+                    <div v-else>
+                        <img class="pure-img outcome_img" :src="couplet_src">
+                    </div>
+                </div>
+                <div class="poem" v-else>
+                    <div v-if="waiting">
+                        {{ message }}
+                    </div>
+                    <div v-else>
+                        <img class="pure-img outcome_img" :src="poem_src">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,7 +60,17 @@
             data: {
                 message: "Waiting",
                 waiting: true,
-                card_src:"",
+                choose_couplet: false,
+                couplet_src: "",
+                poem_src: "",
+            },
+            methods: {
+                click_couplet(e) {
+                    this.choose_couplet = true;
+                },
+                click_poem(e) {
+                    this.choose_couplet = false;
+                },
             },
         });
         let order_id = window.location.pathname.slice(1);
@@ -44,7 +85,8 @@
                 if(response.data.poem !== null) {
                     app.waiting = false;
                     app.message = response.data.poem;
-                    app.card_src = "/api/card?order=" + order_id;
+                    app.couplet_src = "/api/card?order=" + order_id;
+                    app.poem_src = "/api/couplet_card?order=" + order_id;
                     clearInterval(interval);
                 }               
             })

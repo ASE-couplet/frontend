@@ -85,8 +85,8 @@
                 if(response.data.poem !== null) {
                     app.waiting = false;
                     app.message = response.data.poem;
-                    app.couplet_src = "/api/card?order=" + order_id;
-                    app.poem_src = "/api/couplet_card?order=" + order_id;
+                    app.couplet_src = "/api/couplet_card?order=" + order_id;
+                    app.poem_src = "/api/card?order=" + order_id;
                     clearInterval(interval);
                 }               
             })

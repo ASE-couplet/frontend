@@ -95,29 +95,35 @@
         }
         function evaluate_good(){
             hidde_evaluate()
+            let order_id = window.location.pathname.slice(1);
             alert("感谢您的肯定！")
             axios.get('/api/evaluate', {
                 params: {
                     evaluate: 'good',
+                    order: order_id,
                 },
             })
         }
         function evaluate_fair(){
             hidde_evaluate()
             alert("感谢您的评价！")
+            let order_id = window.location.pathname.slice(1);
             axios.get('/api/evaluate', {
                 params: {
                     evaluate: 'fair',
+                    order: order_id,
                 },
             })
         }
 
         function evaluate_bad(){
             hidde_evaluate()
+            let order_id = window.location.pathname.slice(1);
             alert("感谢您的评价，我们会改进并且努力为您写出满意的结果。")
             axios.get('/api/evaluate', {
                 params: {
                     evaluate: 'bad',
+                    order: order_id,
                 },
             })
         }

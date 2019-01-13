@@ -25,7 +25,7 @@
                 <label for="image" v-else>
                     <img class="upload-button pure-img" id="file" src="/static/images/people.png" alt="上传人像">
                 </label>
-                <input type="file" id="image" accept="image/*" hidden @change="update">
+                <input type="file" id="image" accept="image/*" hidden @change="update_face">
             </div>
         </div>
         <div class="pure-g share">
@@ -62,6 +62,45 @@
                 uploading: false,
             },
             methods: {
+                update_face(e){
+                    console.log('uploading...');
+                    // disable input
+                    document.getElementById("image").disabled="disabled";
+                    this.uploading = true;
+                    let file = e.target.files[0];
+                    let param = new FormData();
+                    param.append('image', file);
+                    console.log(param.get('image'));
+                    axios.post('/api/upload_face_type', param)
+                    .then(function (response) {
+                        console.log("upload success!");
+                        console.log(response);
+                        // jump to result page， response.data.id is the #order
+                        window.location.href = String(response.data.id);
+                    })
+                    .catch(function (error) {
+                        app.uploading = false;
+                        // enable input
+                        document.getElementById("image").disabled="";
+                        file = document.getElementById('image');
+                        file.type = '';
+                        file.type = 'file';
+                        console.log("upload fail!");
+                        console.log(error);
+                        console.log(error.response.data)
+                        if(error.response.data.error == undefined){
+                            alert("Server Error.");
+                        }
+                        else{
+                            alert(error.response.data.error);
+                        }
+                    });
+                },            
+            },
+
+
+
+
                 update(e) {
                     console.log('uploading...');
                     // disable input

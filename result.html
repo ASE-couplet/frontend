@@ -54,6 +54,67 @@
             </div>
         </div>
     </div>
+
+
+    <div class="pure-g">
+        <img class="pure-img" src="/static/images/back.png" onclick="location='http://poemscape.mirrors.asia'">
+        <img class="pure-img" src="/static/images/share_card.png" onclick="alert('您可以长按图片(手机)/右键另存为(电脑)，保存图片到您的相册并分享。')">
+        <img class="pure-img" src="/static/images/evaluate.png" onclick="display_evaluate()">
+    </div>
+
+    <div id="evaluate" style="display:none ;">
+        您觉得这首诗写的怎样：<br/>
+        <img class="pure-img" src="/static/images/good.png" onclick="evaluate_good()">
+        <img class="pure-img" src="/static/images/fair.png" onclick="evaluate_fair()">
+        <img class="pure-img" src="/static/images/bad.png" onclick="evaluate_bad()">
+
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        function display_evaluate(){
+            document.getElementById("evaluate").style.display="";
+        }
+        function hidde_evaluate(){
+            document.getElementById("evaluate").style.display="none";
+        }
+        function evaluate_good(){
+            hidde_evaluate()
+            alert("感谢您的肯定！")
+            axios.get('/api/evaluate', {
+                params: {
+                    evaluate: 'good',
+                },
+            })
+        }
+        function evaluate_fair(){
+            hidde_evaluate()
+            alert("感谢您的评价！")
+            axios.get('/api/evaluate', {
+                params: {
+                    evaluate: 'fair',
+                },
+            })
+        }
+
+        function evaluate_bad(){
+            hidde_evaluate()
+            alert("感谢您的评价，我们会改进并且努力为您写出满意的结果。")
+            axios.get('/api/evaluate', {
+                params: {
+                    evaluate: 'bad',
+                },
+            })
+        }
+
+
+
+    </script>
+
+
+
     <script>
         app = new Vue({
             el:'#outcome',

@@ -16,12 +16,16 @@
         <label for="image" v-else>
             <div class="pure-g">
             <div class="pure-u-1-2 upload-landscape">
+            	<label>
                 <img class="upload-button pure-img" id="file" src="/static/images/landscape.png" alt="上传景致">
                 <input type="file" id="image" accept="image/*" hidden @change="update">
+                </label>
             </div>
             <div class="pure-u-1-2 upload-people">
+            	<label>
                 <img class="upload-button pure-img" id="file" src="/static/images/people.png" alt="上传人像">
                 <input type="file" id="image" accept="image/*" hidden @change="update_face">
+                </label>
             </div>
             </div>
 
@@ -62,7 +66,6 @@
             },
             methods: {
                 update(e) {
-                	alert('debug landscape')
                     console.log('uploading...');
                     // disable input
                     document.getElementById("image").disabled="disabled";
@@ -97,7 +100,6 @@
                     });
                 },
                 update_face(e) {
-                	alert('debug face')
                     console.log('uploading...');
                     // disable input
                     document.getElementById("image").disabled="disabled";
